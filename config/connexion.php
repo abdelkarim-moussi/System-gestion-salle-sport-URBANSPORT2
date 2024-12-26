@@ -1,16 +1,35 @@
-<?php
-function Connexion()
-{
+<!-- <?php
 
-    $dsn = "pgsql:host=localhost;port=5432;dbname=LawCab;";
-    $user = "postgres";
-    $password = "Youness";
+class Database{
 
-    try {
-        $pdo = new PDO($dsn, $user, $password);
+    private $server =  "localhost";
+    private $dbname = "systmedb";
+    private $username = "postgres";
+    private $password = "moussi@25";
 
-        return $pdo;
-    } catch (PDOException $e) {
-        echo "Connection failed: " . $e->getMessage();
+
+    protected function connectDb(){
+
+        try{
+          
+            $pdo = new PDO("pgsql:host=".$this->server .";dbname=".$this->dbname,$this->username,$this->password);
+            $pdo -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+            echo "connected";
+            return $pdo;
+
+        }catch(PDOException $e){
+
+            die("connection failed".$e->getMessage());
+        }
+    }
+
+    public function getConnectDb(){
+        return $this -> connectDb();
     }
 }
+
+$cone  = new Database();
+$cone -> getConnectDb();
+
+
+
