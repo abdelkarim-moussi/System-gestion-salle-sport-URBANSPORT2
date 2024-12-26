@@ -25,7 +25,20 @@ CREATE TABLE activities (
 );
 
 --create reservations table
+CREATE TYPE reser_status as ENUM ('pending','accepted','refused','cancel');
+ CREATE TABLE reservations (
+   id_reservation SERIAL PRIMARY KEY,
+   id_user VARCHAR(10),
+   id_activity int,
+   date_reservation date,
+   ALTER TABLE reservations
+   status reser_status DEFAULT 'pending';
+   FOREIGN KEY (id_user) REFERENCES users(id_user) ON DELETE CASCADE ON UPDATE CASCADE,
+   FOREIGN KEY (id_activity) REFERENCES activities(id_activity) ON DELETE CASCADE ON UPDATE CASCADE
+  
+);
 
+-- add status
 
 CREATE TYPE reser_status as ENUM ('pending','accepted','refused','cancel');
  CREATE TABLE reservations (
