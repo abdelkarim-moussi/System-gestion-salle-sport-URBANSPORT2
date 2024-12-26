@@ -38,4 +38,16 @@
            WHERE ID_Membre = $id ORDER BY Source;");
            return $result;
     }
+    
+    public function Admin_ConfirmReservation($idReservation){
+        $status = "ACCEPTER";
+        $stmt = $this->conn->prepare("UPDATE public.reservations
+        SET  status=:status
+        WHERE idreservation = :idreservation");
+            $stmt->bindParam(":idreservation",$idReservation,PDO::PARAM_INT);
+            $stmt->bindParam(":status",$status,PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt;
+    }
+    
 }
