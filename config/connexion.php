@@ -21,6 +21,10 @@ class Database
             echo "Connection failed: " . $e->getMessage();
         }
     }
+    public function getConnection()
+    {
+        return $this->pdo;
+    }
 }
 $db = new Database();
-$conn = $db->connect();
+$conn = $db->getConnection();

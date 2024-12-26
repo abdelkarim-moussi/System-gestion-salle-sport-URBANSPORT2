@@ -9,22 +9,33 @@
         $this->conn = $conn;
     }
     
-    public function Member_AjouterReservation($idActivity,$capacite,$prix)
+    public function Member_AjouterReservation($idMember,$idActivity,$capacite,$prix)
     {
+    $status = "pending";
+    $date = date('y-m-d');
     $total = $prix * $capacite;
-    $stmt = $this->conn->prepare("INSERT INTO `reservations_activites`( `ID_Membre`, `ID_Activité`,`Prix_Reservation`,`Places_Reserver`) 
-    VALUES (?,?,?,?)");
-    $stmt->execute([$idClient,$idActivity,$total,$capacite]);
-    if ($stmt->affected_rows > 0) {
-        $stmt1  = $this->conn->prepare("UPDATE `activités` SET `Capacité`= `Capacité`-? WHERE  `id_activite` = ?");
-        $stmt1->execute([$capacite,$idActivity]);
-        if ($stmt1->affected_rows > 0) {
-            $stmt2 = $this->conn->prepare("UPDATE `activités` SET Disponibilité = ? where `Capacité` = ?");
-            $stmt2->execute([0,0]);
-        }
-    } else {
-        echo "No rows were inserted. Please check your data.";
+    $checkRole = $this->conn->prepare("SELECT * from public.user where user.role like 'member' and id_user = :id_user ");
+    $checkRole->bindParam(":id_user",$idMember,PDO::PARAM_INT);
+    $checkRole->execute();
+    if ($checkRole->affected_rows>1) {
+        $stmt = $this->conn->prepare("INSERT INTO public.reservations(
+            id_activity, date_reservation, status)
+          VALUES (:id_user,:id_activity,:date_reservation)");
+          $stmt->bindParam("id_user",$idMember,PDO::PARAM_INT);
+          $stmt->bindParam("id_activity",$id_activity,PDO::PARAM_INT);
+          $stmt->bindParam(":date_reservation",$date_reservation,PDO::PARAM_STR);
+          $stmt->execute();
+          if ($stmt->affected_rows > 0) {
+              $stmt1  = $this->conn->prepare("UPDATE public.activities
+          SET  capacity= capacity-1
+          WHERE");
+              $stmt1->execute();
+              
+          } else {
+              echo "No rows were inserted. Please check your data.";
+          }
     }
+   
     }
     
     public function Member_showReservations($id)

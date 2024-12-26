@@ -1,10 +1,11 @@
 <?php
-require_once("connexion.php");
+require_once("config/connexion.php");
 
 class modelAdmin{
     private int $id;
     private String $name;
     private String $email;
+
 
     public function __construct($id,$name,$email){
         $this->$id = $id;
@@ -13,16 +14,10 @@ class modelAdmin{
 
     }
 
-
-
-    /** Les methodes magiques */
-
-    // public __get($test){
-    //     $this->teqt = $rze
-    // }
 }
 function selectSpecialities(){
-    $pdo = Connexion();
-    $stmt = $pdo->query("select * from public.specialite");
+    $db = new Database();
+    $pdo = $db->getConnection();
+    $stmt = $pdo->query("select * from public.users");
     return $stmt;
 }
