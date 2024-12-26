@@ -18,8 +18,17 @@ switch ($action) {
     case 'inscriptionAction':
         inscriptionAction();
         break;
+    case 'profileView':
+        profileView();
+        break;
+    case 'UpdateProfile':
+        UpdateInformationAction();
+        break;
     case 'viewDetails':
         viewDetails();
+        break;
+    case 'selectUser':
+        selectUser();
         break;
     
     default:

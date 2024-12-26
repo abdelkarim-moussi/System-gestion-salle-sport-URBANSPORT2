@@ -1,30 +1,26 @@
 <?php
+
 class Database
 {
+    private static $dsn = "pgsql:host=localhost;port=5432;dbname=systemdb;";
+    private static $user = "postgres";
+    private static $password = "Youness";
+    private static $pdo = null;
 
-    private $dsn = "pgsql:host=localhost;port=5432;dbname=systemdb;";
-    private $user = "postgres";
-   
-    private $password = "Youness";
-    private $pdo;
-
-    public function __construct()
+    // Méthode statique pour obtenir la connexion PDO
+    public static function getConnection()
     {
-        $this->connect();
-    }
-    private function connect()
-    {
-        try {
-        $this->pdo  = new PDO($this->dsn,$this->user,$this->password);
-            return $this->pdo;
-        } catch (PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
+        if (self::$pdo === null) {
+            try {
+                self::$pdo = new PDO(self::$dsn, self::$user, self::$password);
+                self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                echo "Connection failed: " . $e->getMessage();
+                exit;  // Stoppe l'exécution en cas d'erreur de connexion
+            }
         }
-    }
-    public function getConnection()
-    {
-        return $this->pdo;
+
+        return self::$pdo;
     }
 }
-$db = new Database();
-$conn = $db->getConnection();
+?>

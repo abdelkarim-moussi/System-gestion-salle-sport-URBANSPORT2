@@ -71,7 +71,8 @@
         }
     }
     
-    public function Admin_ConfirmReservation($idReservation){
+    public function Admin_ConfirmReservation($idReservation)
+    {
         $status = "ACCEPTER";
         $stmt = $this->conn->prepare("UPDATE public.reservations
         SET  status=:status
@@ -86,7 +87,8 @@
             }
             
     }
-    public function Admin_ReffuseReservation($idReservation){
+    public function Admin_ReffuseReservation($idReservation)
+    {
         $status = "REFFUSER";
         $stmt = $this->conn->prepare("UPDATE public.reservations
         SET  status=:status
@@ -100,7 +102,8 @@
             }
             
     }
-    public function Member_AnnulerReservation($idReservation,$idMember){
+    public function Member_AnnulerReservation($idReservation,$idMember)
+    {
         $status = "REFFUSER";
         $stmt = $this->conn->prepare("UPDATE public.reservations
         SET  status=:status
@@ -116,3 +119,4 @@
     }
     
 }
+$reservation = new Reservation(Database::getConnection);
