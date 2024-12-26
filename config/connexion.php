@@ -21,6 +21,10 @@ class Database
             echo "Connection failed: " . $e->getMessage();
         }
     }
+    public function getConnection()
+    {
+        return $this->conn;
+    }
 }
 $db = new Database();
 $conn = $db->connect();
