@@ -26,4 +26,12 @@ CREATE TABLE activities (
 
 --create reservations table
 
+CREATE TABLE reservations (
+   id_reservation INT PRIMARY KEY AUTO_INCREMENT,
+   id_user int,
+   id_activity int,
+   date_reservation date,
+   FOREIGN KEY (id_user) REFERENCES users(id_user) ON DELETE CASCADE ON UPDATE CASCADE,
+   FOREIGN KEY (id_activity) REFERENCES activities(id_activity) ON DELETE CASCADE ON UPDATE CASCADE,
 
+);
