@@ -26,4 +26,16 @@
         echo "No rows were inserted. Please check your data.";
     }
     }
+    
+    public function Member_showReservations($id)
+    {
+        $result = $this->conn->query("
+         SELECT reservations_activites.ID_Reservation, reservations_activites.ID_Membre, reservations_activites.Places_Reserver AS Detail,
+          activités.description AS description, activités.activite_name AS Nom, reservations_activites.ID_Activité AS Resource,
+           'reservations_activites' AS Source 
+           FROM `reservations_activites` 
+           INNER join activités ON activités.id_activite = reservations_activites.ID_Activité 
+           WHERE ID_Membre = $id ORDER BY Source;");
+           return $result;
+    }
 }
