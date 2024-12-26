@@ -59,6 +59,16 @@
             $stmt->execute();
             return $stmt;
     }
-   
+    public function Member_AnnulerReservation($idReservation,$idMember){
+        $status = "REFFUSER";
+        $stmt = $this->conn->prepare("UPDATE public.reservations
+        SET  status=:status
+        WHERE idreservation = :idreservation and idMemebre :idMembre");
+            $stmt->bindParam(":idreservation",$idReservation,PDO::PARAM_INT);
+            $stmt->bindParam(":idMembre",$idMembre,PDO::PARAM_INT);
+            $stmt->bindParam(":status",$status,PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt;
+    }
     
 }
