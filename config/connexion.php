@@ -2,7 +2,7 @@
 class Database
 {
 
-    private $dsn = "pgsql:host=localhost;port=5432;dbname=LawCab;";
+    private $dsn = "pgsql:host=localhost;port=5432;dbname=systemdb;";
     private $user = "postgres";
    
     private $password = "Youness";

@@ -9,7 +9,7 @@
         $this->conn = $conn;
     }
     
-    public function Member_AjouterReservation($nomeReservation,$capacite,$prix)
+    public function Member_AjouterReservation($idActivity,$capacite,$prix)
     {
     $total = $prix * $capacite;
     $stmt = $this->conn->prepare("INSERT INTO `reservations_activites`( `ID_Membre`, `ID_Activité`,`Prix_Reservation`,`Places_Reserver`) 
@@ -19,7 +19,7 @@
         $stmt1  = $this->conn->prepare("UPDATE `activités` SET `Capacité`= `Capacité`-? WHERE  `id_activite` = ?");
         $stmt1->execute([$capacite,$idActivity]);
         if ($stmt1->affected_rows > 0) {
-            $stmt2 = $connexion->prepare("UPDATE `activités` SET Disponibilité = ? where `Capacité` = ?");
+            $stmt2 = $this->conn->prepare("UPDATE `activités` SET Disponibilité = ? where `Capacité` = ?");
             $stmt2->execute([0,0]);
         }
     } else {
@@ -36,7 +36,12 @@
            FROM `reservations_activites` 
            INNER join activités ON activités.id_activite = reservations_activites.ID_Activité 
            WHERE ID_Membre = $id ORDER BY Source;");
-           return $result;
+           try {
+            $stmt->execute();
+            return $stmt;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
     }
     public function Admin_showReservations()
     {
@@ -46,8 +51,13 @@
            'reservations_activites' AS Source 
            FROM `reservations_activites` 
            INNER join activités ON activités.id_activite = reservations_activites.ID_Activité 
-           WHERE ORDER BY Source;");
-           return $result;
+        ORDER BY Source;");
+        try {
+            $stmt->execute();
+            return $stmt;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
     }
     
     public function Admin_ConfirmReservation($idReservation){
@@ -57,8 +67,13 @@
         WHERE idreservation = :idreservation");
             $stmt->bindParam(":idreservation",$idReservation,PDO::PARAM_INT);
             $stmt->bindParam(":status",$status,PDO::PARAM_STR);
-            $stmt->execute();
-            return $stmt;
+            
+            try {
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+            
     }
     public function Admin_ReffuseReservation($idReservation){
         $status = "REFFUSER";
@@ -67,8 +82,12 @@
         WHERE idreservation = :idreservation");
             $stmt->bindParam(":idreservation",$idReservation,PDO::PARAM_INT);
             $stmt->bindParam(":status",$status,PDO::PARAM_STR);
-            $stmt->execute();
-            return $stmt;
+            try {
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+            
     }
     public function Member_AnnulerReservation($idReservation,$idMember){
         $status = "REFFUSER";
@@ -78,8 +97,11 @@
             $stmt->bindParam(":idreservation",$idReservation,PDO::PARAM_INT);
             $stmt->bindParam(":idMembre",$idMembre,PDO::PARAM_INT);
             $stmt->bindParam(":status",$status,PDO::PARAM_STR);
-            $stmt->execute();
-            return $stmt;
+            try {
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
     }
     
 }
