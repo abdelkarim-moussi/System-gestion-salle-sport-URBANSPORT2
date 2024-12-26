@@ -9,7 +9,7 @@
         $this->conn = $conn;
     }
     
-    public function addReservation($nomeReservation,$capacite,$prix)
+    public function Member_AjouterReservation($nomeReservation,$capacite,$prix)
     {
     $total = $prix * $capacite;
     $stmt = $this->conn->prepare("INSERT INTO `reservations_activites`( `ID_Membre`, `ID_Activité`,`Prix_Reservation`,`Places_Reserver`) 
@@ -36,6 +36,17 @@
            FROM `reservations_activites` 
            INNER join activités ON activités.id_activite = reservations_activites.ID_Activité 
            WHERE ID_Membre = $id ORDER BY Source;");
+           return $result;
+    }
+    public function Admin_showReservations()
+    {
+        $result = $this->conn->query("
+         SELECT reservations_activites.ID_Reservation, reservations_activites.ID_Membre, reservations_activites.Places_Reserver AS Detail,
+          activités.description AS description, activités.activite_name AS Nom, reservations_activites.ID_Activité AS Resource,
+           'reservations_activites' AS Source 
+           FROM `reservations_activites` 
+           INNER join activités ON activités.id_activite = reservations_activites.ID_Activité 
+           WHERE ORDER BY Source;");
            return $result;
     }
     
