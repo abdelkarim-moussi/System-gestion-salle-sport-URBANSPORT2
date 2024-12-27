@@ -14,6 +14,11 @@ class modelMemeber{
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    public function afficherUsers(){
+        $stmt = $this->conn->prepare("SELECT * FROM users ");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     
     public function modifierInfos($user_id,$lastname,$firstname,$email){
 
@@ -24,6 +29,17 @@ class modelMemeber{
         $stmt->bindParam(":email",$email,PDO::PARAM_STR);
         $stmt->bindParam(":id_user",$user_id,PDO::PARAM_INT);
         $stmt->execute();
+    }
+    public function CountMembres()
+    {
+        $stmt = $this->conn->prepare("SELECT COUNT(*) as TotalUsers from public.users");
+            try {
+                $stmt->execute();
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+            
     }
 
 }
