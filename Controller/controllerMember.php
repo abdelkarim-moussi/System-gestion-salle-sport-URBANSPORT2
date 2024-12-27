@@ -1,7 +1,7 @@
 <?php
 require_once("Model/modelMember.php");
 
-function inscriptionAction(){
+function inscriptionView(){
     require_once("Views/visiteurViews/inscription.php");
 }
 function viewDetails(){
