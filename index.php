@@ -1,17 +1,18 @@
 <?php
+require_once "config/connexion.php";
 require_once("Controller/controllerAdmin.php");
 require_once("Controller/controllerMember.php");
 echo "hello";
 if(isset($_GET["action"])){
     $action = $_GET["action"];
-}else{
+} else {
     $action = "home";
 }
 
 switch ($action) {
   
     case 'inscriptionForm':
-        inscriptionView();
+        inscriptionAction();
         break;
     case 'inscriptionAction':
         inscriptionAction();
@@ -39,3 +40,4 @@ switch ($action) {
     selectUser();     
     break;
 }
+?>
