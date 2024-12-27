@@ -1,6 +1,7 @@
 <?php
 require_once("Model/modelMember.php");
 require_once("Model/Reservation.php");
+require_once("Model/modelAdmin.php");
 setcookie('user_id','1',time()+3600*10*90,"/");
 
 function inscriptionView(){
@@ -51,4 +52,26 @@ function annulerReservation(){
         $modelReservation->Member_AnnulerReservation($idReservation,$user_id);
 
     }
+}
+function UserListActivities(){
+    $activite = new Activite(Database::getConnection());
+    $activities  = $activite->Admin_showActivities();
+    require_once("Views/memberViews/Activities.php");
+
+}
+
+function reserverActivity(){
+    echo"heloe";
+    echo $_COOKIE["user_id"];
+    echo $_POST["capacity"];
+    echo $_GET["id"];
+
+    if(isset($_COOKIE["user_id"],$_POST["capacity"],$_GET["id"])){
+        $idMember = $_COOKIE["user_id"];
+        $capacite = $_POST["capacity"];
+        $idActivity = $_GET["id"];
+    $modelReservation = new Reservation(DataBase::getConnection());
+    $modelReservation->Member_AjouterReservation($idMember,$idActivity,$capacite);
+    }
+
 }

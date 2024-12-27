@@ -50,10 +50,11 @@ function addNewActivity(){
    
 
 }
-function deleteActivity(){
+function DeleteActivity(){
     echo "hello";
     if(isset($_GET["id"])){
-      $idActivite = $_GET["id"];
+        $activite = new Activite(Database::getConnection());
+        $idActivite = $_GET["id"];
         $activite->Admin_SupprimerActivite($idActivite);
         }
    

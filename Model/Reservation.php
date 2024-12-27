@@ -9,32 +9,33 @@
         $this->conn = $conn;
     }
     
-    public function Member_AjouterReservation($idMember,$idActivity,$capacite,$prix)
+    public function Member_AjouterReservation($idMember,$idActivity,$capacite)
     {
+        $id = $idMember;
+        $idAct = $idActivity;
+        $cap = $capacite;
+        echo "hello";
     $status = "pending";
     $date = date('y-m-d');
-    $total = $prix * $capacite;
-    $checkRole = $this->conn->prepare("SELECT * from public.user where user.role like 'member' and id_user = :id_user ");
-    $checkRole->bindParam(":id_user",$idMember,PDO::PARAM_STR);
-    $checkRole->execute();
-    if ($checkRole->affected_rows>1) {
+   echo $date;
         $stmt = $this->conn->prepare("INSERT INTO public.reservations(
-            id_activity, date_reservation, status)
+           id_user, id_activity, date_reservation)
           VALUES (:id_user,:id_activity,:date_reservation)");
-          $stmt->bindParam("id_user",$idMember,PDO::PARAM_STR);
-          $stmt->bindParam("id_activity",$id_activity,PDO::PARAM_INT);
-          $stmt->bindParam(":date_reservation",$date_reservation,PDO::PARAM_STR);
+          $stmt->bindParam("id_user",$id,PDO::PARAM_STR);
+          $stmt->bindParam("id_activity",$idAct,PDO::PARAM_INT);
+          $stmt->bindParam(":date_reservation",$date,PDO::PARAM_STR);
           $stmt->execute();
-          if ($stmt->affected_rows > 0) {
               $stmt1  = $this->conn->prepare("UPDATE public.activities
-          SET  capacity= capacity-1
-          WHERE");
+          SET  capacity= capacity-:capacity
+          WHERE id_activity = :id_activity");
+        $stmt1->bindParam(":capacity",$cap,PDO::PARAM_INT);
+
+        $stmt1->bindParam(":id_activity",$idAct,PDO::PARAM_INT);
+
               $stmt1->execute();
               
-          } else {
-              echo "No rows were inserted. Please check your data.";
-          }
-    }
+          
+    
    
     }
     
