@@ -54,20 +54,25 @@
     public function Admin_showReservations()
     {
         $result = $this->conn->query("
-         SELECT reservations_activites.ID_Reservation, reservations_activites.ID_Membre, reservations_activites.Places_Reserver AS Detail,
-          activités.description AS description, activités.activite_name AS Nom, reservations_activites.ID_Activité AS Resource,
-           'reservations_activites' AS Source 
-           FROM `reservations_activites` 
-           INNER join activités ON activités.id_activite = reservations_activites.ID_Activité 
-        ORDER BY Source;");
+         SELECT * FROM public.reservations ");
         try {
-            $stmt->execute();
-            return $stmt;
+            $result->execute();
+            return $result->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
     }
-    
+    public function CountReservation()
+    {
+        $stmt = $this->conn->prepare("SELECT COUNT(*) as TotalReservation from public.reservations");
+            try {
+                $stmt->execute();
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+            
+    }
     public function Admin_ConfirmReservation($idReservation)
     {
         $status = "ACCEPTER";
