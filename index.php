@@ -58,6 +58,9 @@ switch ($action) {
     case 'ListMembers':
         AdminListMembers();
         break;
+    case 'addNewActivity':
+        addNewActivity();
+        break;
     
     default:
     selectUser();     
