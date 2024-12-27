@@ -2,7 +2,12 @@
 require_once "config/connexion.php";
 require_once("Controller/controllerAdmin.php");
 require_once("Controller/controllerMember.php");
-echo "hello";
+require_once "Controller/userController.php";
+$pdo = new Database();
+$connec = $pdo->getConnection();
+
+$userc = new UserController($connec);
+
 if(isset($_GET["action"])){
     $action = $_GET["action"];
 } else {
@@ -12,13 +17,13 @@ if(isset($_GET["action"])){
 switch ($action) {
   
     case 'inscriptionForm':
-        inscriptionAction();
+        $userc->inscriptionAction();
         break;
     case 'inscriptionAction':
-        inscriptionAction();
+        $userc -> userSubmission() ;
         break;
     case 'profileView':
-        profileView();
+        // profileView();
         break;
     case 'UpdateProfile':
         UpdateInformationAction();

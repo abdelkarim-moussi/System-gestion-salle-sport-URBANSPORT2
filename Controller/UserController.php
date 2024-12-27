@@ -58,5 +58,9 @@ class UserController {
                 }
         }
     }
+
+    public function inscriptionAction(){
+        require_once "Views/visiteurViews/inscription.php";
+    }
 }
 ?>
