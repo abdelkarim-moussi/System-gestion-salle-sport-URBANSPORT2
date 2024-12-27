@@ -17,10 +17,16 @@ if(isset($_GET["action"])){
 switch ($action) {
   
     case 'inscriptionForm':
-        $userc->inscriptionAction();
+        $userc->InscriptionForm();
         break;
     case 'inscriptionAction':
         $userc -> userSubmission() ;
+        break;
+    case 'loginForm':
+        $userc -> loginForm() ;
+        break;
+    case 'signAction':
+        $userc -> UserLogin();
         break;
     case 'profileView':
         // profileView();

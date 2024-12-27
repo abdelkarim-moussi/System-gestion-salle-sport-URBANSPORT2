@@ -1,4 +1,6 @@
 <?php
+session_start();
+require_once "Model/User.php";
 class UserController {
     private $pdo;
 
@@ -7,6 +9,7 @@ class UserController {
     }
 
     public function userSubmission() {
+
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
           
             $firstName = trim($_POST["fname"]);
@@ -49,9 +52,9 @@ class UserController {
 
             // Hacher le mot de passe
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-                require_once "Model/User.php";
-                $user = new User($this->pdo, $firstName, $lastName, $email, $phone, $hashedPassword);
-                if ($user->createUser()) {
+                $user = new User($this->pdo);
+                
+                if ($user->createUser($firstName, $lastName, $email, $phone, $hashedPassword)) {
                     echo "<script>alert('Your account is successfully created!')</script>";
                 } else {
                     echo "<script>alert('Failed to create your account.')</script>";
@@ -59,8 +62,42 @@ class UserController {
         }
     }
 
-    public function inscriptionAction(){
+    public function UserLogin() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (isset($_POST["email"]) && isset($_POST["password"])) {
+                $email = trim($_POST["email"]);
+                $password = trim($_POST["password"]);
+            
+                if (empty($email)) {
+                    echo "Email is required.";
+                    return;
+                }
+                if (empty($password)) {
+                    echo "Password is required.";
+                    return;
+                }
+            
+                    if($user = new User($this->pdo)){
+                    
+                        echo "connected";
+                    
+                    }
+                 
+                
+            } else {
+                echo "Email and password are required.";
+            }
+        } else {
+            echo "Invalid request method.";
+        }
+    }
+    
+
+    public function InscriptionForm(){
         require_once "Views/visiteurViews/inscription.php";
+    }
+    public function loginForm(){
+        require_once "Views/visiteurViews/login.php";
     }
 }
 ?>

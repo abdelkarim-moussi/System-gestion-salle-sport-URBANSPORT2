@@ -2,9 +2,9 @@
 
 class Database
 {
-    private static $dsn = "pgsql:host=localhost;port=5432;dbname=systemdb;";
+    private static $dsn = "pgsql:host=localhost;port=5432;dbname=systmedb;";
     private static $user = "postgres";
-    private static $password = "youness";
+    private static $password = "moussi@25";
     private static $pdo = null;
 
     public static function getConnection()
