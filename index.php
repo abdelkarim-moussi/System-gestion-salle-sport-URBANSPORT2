@@ -40,6 +40,18 @@ switch ($action) {
     case 'annulerReservation':
         annulerReservation();
         break;
+    case 'dashBoardView':
+        dashBoardView();
+        break;
+    case 'ListActivities':
+        AdminListActivities();
+        break;
+    case 'ListReservations':
+        AdminListReservation();
+        break;
+    case 'ListMembers':
+        AdminListMembers();
+        break;
     
     default:
     selectUser();     
