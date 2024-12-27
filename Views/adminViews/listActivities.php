@@ -1,11 +1,11 @@
 <?php
 ob_start();
-var_dump($activities);
 ?>
 <div>Content for page list Activities </div>
+
 <div class="max-w-7xl mx-auto py-8 px-4">
 
-    <table class="min-w-full table-auto bg-white border-collapse shadow-md rounded-lg">
+    <table class="min-w-[100%] table-auto bg-white border-collapse shadow-md rounded-lg">
         <thead class="bg-green-500 text-white">
             <tr>
                 <th class="px-4 py-2 text-left">Date Reservation</th>
@@ -41,6 +41,18 @@ var_dump($activities);
         </tbody>
     </table>
 </div>
+<script>
+    let addActivity = document.getElementById('addActivity');
+
+
+addActivity.addEventListener("click",function(){
+    document.getElementById("addActivityForm").classList.remove("hidden");
+})
+document.getElementById("subActivity").addEventListener('click',function(){
+    document.getElementById("addActivityForm").classList.add("hidden");
+})
+
+</script>
 <?php
 $content = ob_get_clean();
 require_once("Views/layoutAdmin.php");
