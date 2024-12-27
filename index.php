@@ -62,8 +62,14 @@ switch ($action) {
     case 'addNewActivity':
         addNewActivity();
         break;
-    case 'allActivities':
-        $userc->allActivities();
+    case 'DeleteActivity':
+        DeleteActivity();
+        break;
+    case 'UserListActivities':
+        UserListActivities();
+        break;
+    case 'reserverActivity':
+        reserverActivity();
         break;
     
     default:

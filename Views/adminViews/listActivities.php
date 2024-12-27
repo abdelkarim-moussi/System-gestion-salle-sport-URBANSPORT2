@@ -42,8 +42,6 @@ ob_start();
                 <th class="px-4 py-2 text-left">Specialite</th>
                 <th class="px-4 py-2 text-left">Phone Number</th>
                 <th class="px-4 py-2 text-left">Status</th>
-                <th class="px-4 py-2 text-left">Comment</th>
-                <th class="px-4 py-2 text-left">Rating</th>
        
             </tr>
         </thead>
@@ -60,7 +58,7 @@ ob_start();
                     <td class="px-4 py-2 border-b"><?= $activities[$i]["start_date"]?></td>
                     <td class="px-4 py-2 border-b"><?= $activities[$i]["end_date"]?></td>
                     <td class="px-4 py-2 border-b"><?= $activities[$i]["capacity"]?></td>    
-                    <td class="px-4 py-2 border-b"><a href="index.php?action=annulerReservation&idres=<?=$activities[$i]["id_activity"]?>">annuler la reservation</a></td>
+                    <td class="px-4 py-2 border-b"><a href="index.php?action=DeleteActivity&id=<?=$activities[$i]["id_activity"]?>">supprimer l'activity</a></td>
                 </tr>
                 <?php
  }    
