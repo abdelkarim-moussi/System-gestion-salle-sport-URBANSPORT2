@@ -30,7 +30,7 @@ switch ($action) {
         $userc -> UserLogin();
         break;
     case 'profileView':
-        // profileView();
+        selectUser();
         break;
     case 'UpdateProfile':
         UpdateInformationAction();

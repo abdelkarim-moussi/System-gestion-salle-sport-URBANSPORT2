@@ -14,7 +14,7 @@ function viewDetails(){
 
 function selectUser(){
     $modelMemeber = new modelMemeber(Database::getConnection());
-    $result=$modelMemeber->afficherInfos(1);
+    $result=$modelMemeber->afficherInfos($_SESSION["userId"]);
     require_once("Views/memberViews/profile.php");
     return $result;
 

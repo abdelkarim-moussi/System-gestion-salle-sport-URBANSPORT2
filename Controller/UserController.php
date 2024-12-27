@@ -88,7 +88,7 @@ class UserController {
                         header("Location:http://localhost/System-gestion-salle-sport-URBANSPORT2/index.php?action=dashBoardView");
                     }
                     else if($_SESSION["role"] === "member"){
-                        header("Location:http://localhost/System-gestion-salle-sport-URBANSPORT2/index.php?action=MembreReservations");
+                        header("Location:http://localhost/System-gestion-salle-sport-URBANSPORT2/index.php?action=profileView");
                     }
                 } else {
                     echo "failed";
