@@ -53,9 +53,25 @@ function annulerReservation(){
 
     }
 }
-function ListActivities(){
+function UserListActivities(){
     $activite = new Activite(Database::getConnection());
     $activities  = $activite->Admin_showActivities();
     require_once("Views/memberViews/Activities.php");
+
+}
+
+function reserverActivity(){
+    echo"heloe";
+    echo $_COOKIE["user_id"];
+    echo $_POST["capacity"];
+    echo $_GET["id"];
+
+    if(isset($_COOKIE["user_id"],$_POST["capacity"],$_GET["id"])){
+        $idMember = $_COOKIE["user_id"];
+        $capacite = $_POST["capacity"];
+        $idActivity = $_GET["id"];
+    $modelReservation = new Reservation(DataBase::getConnection());
+    $modelReservation->Member_AjouterReservation($idMember,$idActivity,$capacite);
+    }
 
 }

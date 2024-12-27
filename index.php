@@ -58,8 +58,11 @@ switch ($action) {
     case 'DeleteActivity':
         DeleteActivity();
         break;
-    case 'DeleteActivity':
-        DeleteActivity();
+    case 'UserListActivities':
+        UserListActivities();
+        break;
+    case 'reserverActivity':
+        reserverActivity();
         break;
     
     default:
