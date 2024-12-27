@@ -1,10 +1,17 @@
 <?php
+require_once "config/connexion.php";
 require_once("Controller/controllerAdmin.php");
 require_once("Controller/controllerMember.php");
+require_once("Controller/userController.php");
 
-if(isset($_GET["action"])){
+$pdo = new Database();
+$connec = $pdo->getConnection();
+
+$userc = new UserController($connec);
+
+if (isset($_GET["action"])) {
     $action = $_GET["action"];
-}else{
+} else {
     $action = "home";
 }
 
@@ -13,16 +20,16 @@ switch ($action) {
         homePageAction();
         break;
     case 'inscriptionForm':
-        inscriptionView();
+        inscriptionAction();
         break;
     case 'inscriptionAction':
-        inscriptionAction();
+        $userc->userSubmission();
         break;
     case 'viewDetails':
         viewDetails();
         break;
-    
     default:
-        # code...
+        echo "Unknown action: " . htmlspecialchars($action);
         break;
 }
+?>
