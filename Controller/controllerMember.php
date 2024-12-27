@@ -1,6 +1,7 @@
 <?php
 require_once("Model/modelMember.php");
 require_once("Model/Reservation.php");
+require_once("Model/modelAdmin.php");
 setcookie('user_id','1',time()+3600*10*90,"/");
 
 function inscriptionView(){
@@ -51,4 +52,10 @@ function annulerReservation(){
         $modelReservation->Member_AnnulerReservation($idReservation,$user_id);
 
     }
+}
+function ListActivities(){
+    $activite = new Activite(Database::getConnection());
+    $activities  = $activite->Admin_showActivities();
+    require_once("Views/memberViews/Activities.php");
+
 }

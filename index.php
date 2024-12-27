@@ -55,6 +55,12 @@ switch ($action) {
     case 'addNewActivity':
         addNewActivity();
         break;
+    case 'DeleteActivity':
+        DeleteActivity();
+        break;
+    case 'DeleteActivity':
+        DeleteActivity();
+        break;
     
     default:
     selectUser();     

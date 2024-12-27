@@ -81,4 +81,4 @@ document.getElementById("subActivity").addEventListener('click',function(){
 </script>
 <?php
 $content = ob_get_clean();
-require_once("Views/layoutAdmin.php");
+require_once("Views/layoutMember.php");

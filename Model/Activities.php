@@ -24,11 +24,17 @@
     
     public function Admin_SupprimerActivite($idActivite)
     {
-        $stmt = $this->conn->prepare("DELETE public.activities
-        WHERE idactivite = :idactivite");
-            $stmt->bindParam(":idactivite",$idactivite,PDO::PARAM_INT);
+        $id = $idActivite;
+        
+        $stmt = $this->conn->prepare("DELETE from public.activities
+        WHERE id_activity = :id_activity");
+            $stmt->bindParam(":id_activity",$id);
+            $stmt->execute();
+
             try {
                 $stmt->execute();
+                echo "is deleted";
+
                 
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
