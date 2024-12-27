@@ -9,20 +9,20 @@ class modelMemeber{
     }
     
     public function afficherInfos($id){
-        $stmt = $this->conn->prepare("SELECT * FROM users WHERE id = :id");
-        $stmt->bindParam(":id",$id,PDO::PARAM_INT);
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE id_user = :id_user");
+        $stmt->bindParam(":id_user",$id,PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt;
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
-    public function modifierInfos($id){
+    public function modifierInfos($user_id,$lastname,$firstname,$email){
+
         $stmt = $this->conn->prepare("UPDATE public.users
-        SET firstname=:firstname, lastname=:lastname, email=:email
-        WHERE  id = :id");
+	SET firstname=:firstname, lastname=:lastname, email=:email WHERE id_user=:id_user");
         $stmt->bindParam(":firstname",$firstname,PDO::PARAM_STR);
         $stmt->bindParam(":lastname",$lastname,PDO::PARAM_STR);
         $stmt->bindParam(":email",$email,PDO::PARAM_STR);
-        $stmt->bindParam(":id",$id,PDO::PARAM_INT);
+        $stmt->bindParam(":id_user",$user_id,PDO::PARAM_INT);
         $stmt->execute();
     }
 
