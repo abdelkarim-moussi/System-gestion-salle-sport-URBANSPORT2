@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "Model/User.php";
+
 class UserController {
     private $pdo;
 
@@ -62,12 +63,14 @@ class UserController {
         }
     }
 
+
+
     public function UserLogin() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (isset($_POST["email"]) && isset($_POST["password"])) {
                 $email = trim($_POST["email"]);
                 $password = trim($_POST["password"]);
-            
+
                 if (empty($email)) {
                     echo "Email is required.";
                     return;
@@ -76,14 +79,14 @@ class UserController {
                     echo "Password is required.";
                     return;
                 }
-            
-                    if($user = new User($this->pdo)){
-                    
-                        echo "connected";
-                    
-                    }
-                 
-                
+
+                $user = new User($this->pdo);
+                if ($user->signIn($email, $password)) {
+                    echo "User logged in with email: ", $_SESSION["email"] .'<br>and<br>'.$_SESSION["userId"]."<br>";
+                    echo "connected";
+                } else {
+                    echo "failed";
+                }
             } else {
                 echo "Email and password are required.";
             }
@@ -91,12 +94,13 @@ class UserController {
             echo "Invalid request method.";
         }
     }
-    
 
-    public function InscriptionForm(){
+
+    public function InscriptionForm() {
         require_once "Views/visiteurViews/inscription.php";
     }
-    public function loginForm(){
+
+    public function loginForm() {
         require_once "Views/visiteurViews/login.php";
     }
 }
