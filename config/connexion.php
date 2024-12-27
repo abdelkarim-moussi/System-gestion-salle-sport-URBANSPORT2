@@ -7,7 +7,6 @@ class Database
     private static $password = "Youness";
     private static $pdo = null;
 
-    // Méthode statique pour obtenir la connexion PDO
     public static function getConnection()
     {
         if (self::$pdo === null) {
@@ -16,7 +15,7 @@ class Database
                 self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e) {
                 echo "Connection failed: " . $e->getMessage();
-                exit;  // Stoppe l'exécution en cas d'erreur de connexion
+                exit;  
             }
         }
 

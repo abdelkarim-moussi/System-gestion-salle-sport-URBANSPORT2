@@ -9,9 +9,7 @@ if(isset($_GET["action"])){
 }
 
 switch ($action) {
-    case 'home':
-        homePageAction();
-        break;
+  
     case 'inscriptionForm':
         inscriptionView();
         break;
@@ -27,11 +25,17 @@ switch ($action) {
     case 'viewDetails':
         viewDetails();
         break;
-    case 'selectUser':
+    case 'FormUsertUser':
         selectUser();
+        break;
+    case 'MembreReservations':
+        MembreReservations();
+        break;
+    case 'annulerReservation':
+        annulerReservation();
         break;
     
     default:
-        # code...
-        break;
+    selectUser();     
+    break;
 }

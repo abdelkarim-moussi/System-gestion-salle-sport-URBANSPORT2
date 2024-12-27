@@ -1,6 +1,7 @@
 <?php
 require_once("Model/modelMember.php");
-setcookie('user_id',1,time()+3600*10,"/");
+require_once("Model/Reservation.php");
+setcookie('user_id','1',time()+3600*10*90,"/");
 
 function inscriptionView(){
     require_once("Views/visiteurViews/inscription.php");
@@ -8,20 +9,17 @@ function inscriptionView(){
 function viewDetails(){
     require_once("Views/visiteurViews/details.php");
 }
-function profileView(){
-    $result = selectInformations();
-    require_once("Views/memberViews/profile.php");
-}
+
 
 function selectUser(){
     $modelMemeber = new modelMemeber(Database::getConnection());
-
     $result=$modelMemeber->afficherInfos(1);
     require_once("Views/memberViews/profile.php");
     return $result;
 
 
 }
+
 function UpdateInformationAction(){
     if (isset($_COOKIE['user_id'],$_POST["last_name"],$_POST['first_name'],$_POST['email'])) {
         $firstname = $_POST["first_name"];
@@ -30,10 +28,27 @@ function UpdateInformationAction(){
         $email = $_POST["email"];
         $modelMemeber = new modelMemeber(Database::getConnection());
         $modelMemeber->modifierInfos($user_id,$lastname,$firstname,$email);
-        header("location:index.php?action=selectUser");
-    }else{
+        selectUser();
+        }else{
         echo "error";
     }
 
 
+}
+function MembreReservations(){
+    if (isset($_COOKIE['user_id'])){
+        $user_id = $_COOKIE["user_id"];
+        $modelReservation = new Reservation(DataBase::getConnection());
+       $result =  $modelReservation->Member_showReservations($user_id);
+       require_once("Views/memberViews/reservations.php");
+    }
+}
+function annulerReservation(){
+    if (isset($_GET["idres"],$_COOKIE['user_id'])) {
+        $user_id = $_COOKIE["user_id"];
+        $idReservation = $_GET["idres"];
+        $modelReservation = new Reservation(DataBase::getConnection());
+        $modelReservation->Member_AnnulerReservation($idReservation,$user_id);
+
+    }
 }
