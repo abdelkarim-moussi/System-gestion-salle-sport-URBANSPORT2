@@ -103,5 +103,11 @@ class UserController {
     public function loginForm() {
         require_once "Views/visiteurViews/login.php";
     }
+
+    function allActivities(){
+        $activite = new Activite(Database::getConnection());
+        $activities  = $activite->Admin_showActivities();
+        require_once("Views/visiteurViews/allActivities.php");
+    }
 }
 ?>

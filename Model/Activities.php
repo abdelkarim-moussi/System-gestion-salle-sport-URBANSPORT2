@@ -13,7 +13,7 @@
     {
         $result = $this->conn->query("
          SELECT *
-	FROM public.activities");
+	    FROM public.activities");
         try {
             $result->execute();
             return $result->fetchAll(PDO::FETCH_ASSOC);

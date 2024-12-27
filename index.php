@@ -3,6 +3,7 @@ require_once "config/connexion.php";
 require_once("Controller/controllerAdmin.php");
 require_once("Controller/controllerMember.php");
 require_once "Controller/userController.php";
+
 $pdo = new Database();
 $connec = $pdo->getConnection();
 
@@ -60,6 +61,9 @@ switch ($action) {
         break;
     case 'addNewActivity':
         addNewActivity();
+        break;
+    case 'allActivities':
+        $userc->allActivities();
         break;
     
     default:
