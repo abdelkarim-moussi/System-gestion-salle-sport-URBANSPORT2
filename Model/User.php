@@ -44,6 +44,7 @@ class User {
             $_SESSION["role"] = $result['role'];
 
             return true;
+            
         } else {
             return false;
         }

@@ -84,6 +84,12 @@ class UserController {
                 if ($user->signIn($email, $password)) {
                     echo "User logged in with email: ", $_SESSION["email"] .'<br>and<br>'.$_SESSION["userId"]."<br>";
                     echo "connected";
+                    if($_SESSION["role"] === "admin"){
+                        header("Location:http://localhost/System-gestion-salle-sport-URBANSPORT2/index.php?action=dashBoardView");
+                    }
+                    else if($_SESSION["role"] === "member"){
+                        header("Location:http://localhost/System-gestion-salle-sport-URBANSPORT2/index.php?action=MembreReservations");
+                    }
                 } else {
                     echo "failed";
                 }
