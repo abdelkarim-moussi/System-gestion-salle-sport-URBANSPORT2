@@ -33,3 +33,29 @@ function AdminListMembers(){
     require_once("Views/adminViews/listMembers.php");
 
 }
+function addNewActivity(){
+    echo "hello";
+    if(isset($_POST["name_activity"],$_POST["description"],$_POST["start_date"],$_POST["end_date"],$_POST["capacity"])){
+        $activite = new Activite(Database::getConnection());
+        $name_activity = $_POST["name_activity"];
+        $description = $_POST["description"];
+        $start_date = $_POST["start_date"];
+        $end_date = $_POST["end_date"];
+        $capacity = $_POST["capacity"];
+        echo "gg";
+
+        $activite->AddActivite($name_activity,$description,$start_date,$end_date,$capacity);
+
+        }
+   
+
+}
+function deleteActivity(){
+    echo "hello";
+    if(isset($_GET["id"])){
+      $idActivite = $_GET["id"];
+        $activite->Admin_SupprimerActivite($idActivite);
+        }
+   
+
+}

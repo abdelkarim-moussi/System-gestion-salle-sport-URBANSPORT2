@@ -48,6 +48,7 @@
     }
     public function AddActivite($name_activity,$description,$start_date,$end_date,$capacity)
     {
+        echo "is connected";
         $stmt = $this->conn->prepare("INSERT INTO public.activities(
 	 name_activity, description, start_date, end_date, capacity)
 	VALUES (:name_activity,:description, :start_date, :end_date, :capacity)");
